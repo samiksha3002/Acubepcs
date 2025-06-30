@@ -5,7 +5,14 @@ module.exports = {
     "./src/components/**/*.{js,ts,jsx,tsx}"
   ],
   theme: {
-    extend: {},
+    extend: {
+      dropShadow: {
+        glow: '0 0 8px #00ff84, 0 0 12px #00ff84',
+      },
+      colors: {
+        neonGreen: '#00ff84',
+      },
+    },
   },
   plugins: [],
 };

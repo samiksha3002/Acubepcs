@@ -122,7 +122,7 @@ const HeroWithHeader = () => {
           className="md:w-1/2 flex justify-center"
         >
           <Image
-            src="/mobile1.jpg"
+            src="/ev.png"
             alt="Mobile App"
             width={250}
             height={280}

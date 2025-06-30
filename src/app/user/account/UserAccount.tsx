@@ -7,6 +7,7 @@ import { doc, getDoc } from "firebase/firestore";
 import { useRouter } from "next/navigation";
 import { ChevronDown, LogOut, User } from "lucide-react";
 import Image from "next/image";
+import { motion } from "framer-motion";
 
 export default function UserAccount() {
   const [userData, setUserData] = useState<any>(null);
@@ -49,7 +50,6 @@ export default function UserAccount() {
   const displayName =
     userData?.name || auth.currentUser?.email?.split("@")[0] || "User";
 
-  // 💡 Calculate total return
   const startDate = userData?.startDate?.toDate?.() || new Date();
   const today = new Date();
   const daysPassed = Math.floor(
@@ -60,7 +60,6 @@ export default function UserAccount() {
 
   return (
     <div className="min-h-screen bg-gray-100">
-      {/* Header */}
       <header className="flex justify-between items-center px-6 py-4 bg-white shadow">
         <div className="flex items-center gap-2">
           <Image src="/logo.png" alt="Logo" width={40} height={40} />
@@ -95,7 +94,6 @@ export default function UserAccount() {
         </div>
       </header>
 
-      {/* Main Content */}
       <main className="p-6 flex justify-center">
         <div className="bg-white shadow rounded-lg p-6 w-full max-w-2xl text-center">
           <h2 className="text-xl font-semibold mb-6 text-gray-800">
@@ -104,7 +102,6 @@ export default function UserAccount() {
 
           {userData?.approved ? (
             <>
-              {/* Stats Grid */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 text-center mb-8">
                 <div className="bg-blue-100 rounded p-4 shadow">
                   <p className="text-sm text-gray-600">💰 Invested Amount</p>
@@ -120,21 +117,23 @@ export default function UserAccount() {
                 </div>
               </div>
 
-              {/* Total Earnings */}
-              <div className="mb-4">
-                <p className="text-sm text-gray-600">
-                  📆 Days Passed: {daysPassed}
-                </p>
-                <p className="text-lg font-semibold text-purple-700">
-                  Total Return till Today: ₹{totalReturn}
-                </p>
-              </div>
+              <p className="text-gray-600 mb-4 text-sm">
+                📅 Days Passed: {daysPassed} — 📥 Total Return: ₹{totalReturn}
+              </p>
 
-              {/* Graph Placeholder */}
-              <div className="mt-10">
-                {/* We'll add the half-circle arrow graph here next */}
-                <div className="bg-gray-50 border rounded p-6 text-gray-400">
-                  ⏳ Graph coming soon: Half-circle SUI-style arrow
+              {/* Half-circle graph with arrow */}
+              <div className="flex justify-center mt-10">
+                <div className="relative w-48 h-24 border-t-4 border-blue-400 rounded-b-full">
+                  <motion.div
+                    className="absolute top-[-10px] left-1/2 w-0 h-0 border-l-8 border-r-8 border-b-[16px] border-transparent border-b-blue-500"
+                    animate={{ rotate: [0, 180, 0] }}
+                    transition={{
+                      repeat: Infinity,
+                      duration: 4,
+                      ease: "linear",
+                    }}
+                    style={{ transformOrigin: "bottom center" }}
+                  />
                 </div>
               </div>
             </>

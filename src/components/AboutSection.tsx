@@ -48,7 +48,7 @@ const AboutSection = () => {
         className="mt-10 md:mt-0 w-full md:w-1/2 flex justify-center z-10"
       >
         <img
-          src="https://darkviolet-tapir-631906.hostingersite.com/wp-content/uploads/2025/06/AcubeI2.jpg" // ✅ external URL instead of local file
+          src="ev2.png" // ✅ external URL instead of local file
           alt="About App"
           className="rounded-xl shadow-lg max-w-[300px] sm:max-w-[350px] h-auto"
         />
