@@ -23,7 +23,7 @@ const AboutSection = () => {
           ABOUT ACUBEpcs
         </h2>
         <p className="text-base sm:text-lg leading-relaxed max-w-xl mx-auto md:mx-0">
-          LaxmiPCS is a cutting-edge investment platform that enables users to
+          ACUBEpcs is a cutting-edge investment platform that enables users to
           invest in renewable energy products and earn daily returns. Our
           mission is to make sustainable investing accessible and profitable for
           everyone.
