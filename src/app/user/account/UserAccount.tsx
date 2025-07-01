@@ -137,13 +137,13 @@ export default function UserAccount() {
                   </p>
                 </div>
 
-                <div className="bg-white rounded p-4 shadow-xl border">
+                <div className="bg-white rounded p-4 shadow-2xl border">
                   <p className="text-sm text-gray-600">📅 Days Passed</p>
                   <p className="text-2xl font-bold text-gray-800">
                     {daysPassed} Days
                   </p>
 
-                  <p className="mt-4 text-sm text-gray-600">📈 Daily Return</p>
+                  <p className="mt-4 text-md text-gray-600">📈 Daily Return</p>
                   <p className="text-2xl font-bold text-green-700">
                     ₹{userData.dailyReturn || 0}
                   </p>
@@ -181,7 +181,7 @@ export default function UserAccount() {
 
               <div className="flex justify-center mt-6 gap-4">
                 <button
-                  className="bg-red-500 hover:bg-red-600 text-white px-6 py-2 rounded shadow"
+                  className="bg-red-500 hover:bg-red-600 text-white px-6 py-2 rounded shadow-xl"
                   onClick={() => router.push("/withdraw")}
                 >
                   Withdraw Profits
