@@ -8,6 +8,14 @@ import { useRouter } from "next/navigation";
 import { ChevronDown, LogOut, User } from "lucide-react";
 import Image from "next/image";
 import { motion } from "framer-motion";
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  Tooltip,
+  ResponsiveContainer,
+  Cell,
+} from "recharts";
 
 export default function UserAccount() {
   const [userData, setUserData] = useState<any>(null);
@@ -58,12 +66,26 @@ export default function UserAccount() {
 
   const totalReturn = (userData?.dailyReturn || 0) * daysPassed;
 
+  const chartData = Array.from({ length: daysPassed })
+    .map((_, index) => {
+      const date = new Date(startDate);
+      date.setDate(date.getDate() + index);
+      return {
+        date: date.toLocaleDateString("en-IN", {
+          day: "2-digit",
+          month: "short",
+        }),
+        amount: (userData?.dailyReturn || 0) * (index + 1),
+      };
+    })
+    .slice(-7);
+
   return (
     <div className="min-h-screen bg-gray-100">
-      <header className="flex justify-between items-center px-6 py-4 bg-white shadow">
+      <header className="flex justify-between items-center px-6  bg-white shadow-xl">
         <div className="flex items-center gap-2">
-          <Image src="/logo.png" alt="Logo" width={40} height={40} />
-          <h1 className="text-xl font-bold">ACUBEpcs</h1>
+          <Image src="/logi.png" alt="Logo" width={110} height={40} />
+          <h1 className="text-xl font-bold"></h1>
         </div>
 
         <div className="relative">
@@ -95,46 +117,81 @@ export default function UserAccount() {
       </header>
 
       <main className="p-6 flex justify-center">
-        <div className="bg-white shadow rounded-lg p-6 w-full max-w-2xl text-center">
+        <div className="w-full max-w-3xl text-center">
           <h2 className="text-xl font-semibold mb-6 text-gray-800">
             📊 Investment Summary
           </h2>
 
           {userData?.approved ? (
             <>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 text-center mb-8">
-                <div className="bg-blue-100 rounded p-4 shadow">
-                  <p className="text-sm text-gray-600">💰 Invested Amount</p>
-                  <p className="text-2xl font-bold text-blue-800">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-8">
+                <div className="bg-white rounded p-4 shadow-2xl border">
+                  <p className="text-sm text-blue-600"> Invested Amount</p>
+                  <p className="text-2xl font-bold text-gray-800">
                     ₹{userData.investedAmount || 0}
                   </p>
+
+                  <p className="mt-4 text-sm text-black-600"> Total Profit</p>
+                  <p className="text-2xl font-bold text-green-700">
+                    ₹{totalReturn}
+                  </p>
                 </div>
-                <div className="bg-green-100 rounded p-4 shadow">
-                  <p className="text-sm text-gray-600">📈 Daily Return</p>
+
+                <div className="bg-white rounded p-4 shadow-xl border">
+                  <p className="text-sm text-blue-600"> Day Passed</p>
+                  <p className="text-2xl font-bold text-gray-800">
+                    {daysPassed} Days
+                  </p>
+
+                  <p className="mt-4 text-sm text-gray-600"> Daily Return</p>
                   <p className="text-2xl font-bold text-green-700">
                     ₹{userData.dailyReturn || 0}
                   </p>
                 </div>
               </div>
 
-              <p className="text-gray-600 mb-4 text-sm">
-                📅 Days Passed: {daysPassed} — 📥 Total Return: ₹{totalReturn}
-              </p>
+              <div className="mt-10">
+                <ResponsiveContainer width="100%" height={250}>
+                  <BarChart
+                    data={chartData}
+                    margin={{ top: 10, right: 0, left: 0, bottom: 0 }}
+                  >
+                    <XAxis
+                      dataKey="date"
+                      tickLine={false}
+                      axisLine={false}
+                      fontSize={10}
+                    />
+                    <Tooltip
+                      cursor={{ fill: "#f0f0f0" }}
+                      contentStyle={{ fontSize: "12px" }}
+                      formatter={(value: number) => [
+                        `₹${value}`,
+                        "Total Profit",
+                      ]}
+                    />
+                    <Bar dataKey="amount" radius={[8, 8, 0, 0]}>
+                      {chartData.map((entry, index) => (
+                        <Cell key={`cell-${index}`} fill="#3B82F6" />
+                      ))}
+                    </Bar>
+                  </BarChart>
+                </ResponsiveContainer>
+              </div>
 
-              {/* Half-circle graph with arrow */}
-              <div className="flex justify-center mt-10">
-                <div className="relative w-48 h-24 border-t-4 border-blue-400 rounded-b-full">
-                  <motion.div
-                    className="absolute top-[-10px] left-1/2 w-0 h-0 border-l-8 border-r-8 border-b-[16px] border-transparent border-b-blue-500"
-                    animate={{ rotate: [0, 180, 0] }}
-                    transition={{
-                      repeat: Infinity,
-                      duration: 4,
-                      ease: "linear",
-                    }}
-                    style={{ transformOrigin: "bottom center" }}
-                  />
-                </div>
+              <div className="flex justify-center mt-10 gap-6">
+                <button
+                  className="bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600 text-white px-8 py-3 text-lg font-semibold rounded-xl shadow-sm transition-transform transform hover:scale-105"
+                  onClick={() => router.push("/withdraw")}
+                >
+                  REEDEM
+                </button>
+                <button
+                  className="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white px-8 py-3 text-lg font-semibold rounded-xl shadow-sm transition-transform transform hover:scale-105"
+                  onClick={() => router.push("/more")}
+                >
+                  INVEST
+                </button>
               </div>
             </>
           ) : (

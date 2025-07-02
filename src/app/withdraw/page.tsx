@@ -60,9 +60,9 @@ export default function WithdrawPage() {
       </header>
 
       <main className="p-6 flex justify-center">
-        <div className="bg-white rounded shadow p-6 w-full max-w-md">
+        <div className="bg-white rounded shadow-2xl p-6 w-full max-w-md">
           <h2 className="text-lg font-semibold mb-4 text-center">
-            Withdraw Your Earnings
+            Withdraw Your Profits
           </h2>
 
           <p className="text-gray-600 text-sm mb-6 text-center">

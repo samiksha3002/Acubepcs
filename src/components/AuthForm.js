@@ -67,7 +67,7 @@ export default function AuthForm() {
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-100 to-purple-100 px-4">
       <div className="bg-white shadow-xl rounded-xl p-8 w-full max-w-md">
         <h2 className="text-2xl font-bold text-center mb-6 text-blue-600">
-          {isSignup ? "Create an Account" : "Login to Your Account"}
+          {isSignup ? "Lets Get Started " : "Login to Your Account"}
         </h2>
 
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">

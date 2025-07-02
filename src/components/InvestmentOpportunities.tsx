@@ -5,36 +5,45 @@ const InvestmentOpportunities = () => {
     {
       name: "Power-Max Plus",
       amount: "₹5,000",
-      returns: "₹136",
-      period: "76 days",
-      total: "₹10,336",
+      returns: "₹33",
+      period: "304 days",
+      total: "₹10,032",
       image:
         "https://darkviolet-tapir-631906.hostingersite.com/wp-content/uploads/2025/04/PowerMax.jpg", // Replace with your image URL
     },
     {
       name: "Power-Max Ultra",
       amount: "₹15,000",
-      returns: "₹360",
-      period: "84 days",
-      total: "₹30,240",
+      returns: "₹99",
+      period: "304 days",
+      total: "₹30,096",
       image:
         "https://darkviolet-tapir-631906.hostingersite.com/wp-content/uploads/2025/04/PowerMax-Ultra.jpg", // Replace with your image URL
     },
     {
       name: "Power-Max Pro",
-      amount: "₹25,000",
-      returns: "₹580",
-      period: "90 days",
-      total: "₹52,200",
+      amount: "₹20,000",
+      returns: "₹132",
+      period: "304 days",
+      total: "₹40,128",
       image:
         "https://darkviolet-tapir-631906.hostingersite.com/wp-content/uploads/2025/04/VoltHive-Core.jpg", // Duplicate for example
     },
     {
       name: "Power-Boost Max",
+      amount: "₹25,000",
+      returns: "₹165",
+      period: "304 days",
+      total: "₹50,160",
+      image:
+        "https://darkviolet-tapir-631906.hostingersite.com/wp-content/uploads/2025/04/Solar-Edge.jpg", // Duplicate for example
+    },
+    {
+      name: "Power-Boost Max",
       amount: "₹50,000",
-      returns: "₹1200",
-      period: "95 days",
-      total: "₹1,14,000",
+      returns: "₹330",
+      period: "304 days",
+      total: "₹1,00,320",
       image:
         "https://darkviolet-tapir-631906.hostingersite.com/wp-content/uploads/2025/04/Solar-Edge.jpg", // Duplicate for example
     },

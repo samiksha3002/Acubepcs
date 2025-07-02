@@ -21,12 +21,12 @@ const HeroWithHeader = () => {
       <div className="absolute inset-0 bg-black bg-opacity-60 z-0" />
 
       {/* Header */}
-      <header className="w-full absolute top-0 left-0 z-50">
+      <header className="w-full fixed top-0 left-0 z-50">
         <div className="max-w-7xl mx-auto px-6 md:px-10 py-3 flex items-center justify-between">
           {/* Logo */}
           <div className="flex items-center space-x-2 z-50">
             <Image
-              src="/logi.png"
+              src="/white.png"
               alt="Acube Logo"
               width={130}
               height={130}
@@ -109,16 +109,12 @@ const HeroWithHeader = () => {
       </header>
 
       {/* Hero Content */}
-      <div className="relative z-10 flex flex-col-reverse md:flex-row items-center justify-between px-6 md:px-20 pt-36 pb-20 gap-10">
+      <div className="relative z-10 flex flex-col-reverse md:flex-row items-center justify-between px-6 md:px-20 pt-40 pb-20 gap-10">
         {/* Left Image */}
         <motion.div
-          initial={{ opacity: 0.8 }}
-          animate={{ opacity: [0.8, 1, 0.8] }}
-          transition={{
-            repeat: Infinity,
-            duration: 2,
-            ease: "easeInOut",
-          }}
+          initial={{ scale: 1 }}
+          animate={{ scale: [1, 1.05, 1] }}
+          transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
           className="md:w-1/2 flex justify-center"
         >
           <Image
@@ -126,7 +122,7 @@ const HeroWithHeader = () => {
             alt="Mobile App"
             width={250}
             height={280}
-            className="rounded-xl shadow-lg glow-pulse"
+            className="rounded-xl shadow-lg"
           />
         </motion.div>
 
@@ -142,7 +138,7 @@ const HeroWithHeader = () => {
             <span className="text-blue-400">ACUBEpcs</span>
           </h1>
           <p className="mt-4 text-base sm:text-lg font-light">
-            Empower your future with sustainable investments and daily returns.
+            Empower your future with sustainable investments and daily profits.
           </p>
           <Link
             href="/plans"
@@ -157,24 +153,7 @@ const HeroWithHeader = () => {
       <style jsx>{`
         .text-glow {
           color: #fff;
-          text-shadow: 0 0 4px #00f, 0 0 8px #00f, 0 0 12px #80f, 0 0 16px #80f;
-        }
-
-        .glow-pulse {
-          box-shadow: 0 0 10px #00f, 0 0 20px #00f, 0 0 30px #80f;
-          animation: pulseGlow 2s ease-in-out infinite;
-        }
-
-        @keyframes pulseGlow {
-          0% {
-            box-shadow: 0 0 10px #00f, 0 0 20px #00f, 0 0 30px #80f;
-          }
-          50% {
-            box-shadow: 0 0 20px #80f, 0 0 30px #a0f, 0 0 40px #c0f;
-          }
-          100% {
-            box-shadow: 0 0 10px #00f, 0 0 20px #00f, 0 0 30px #80f;
-          }
+          text-shadow: 0 0 2px #00f, 0 0 4px #00f, 0 0 6px #80f, 0 0 8px #80f;
         }
       `}</style>
     </section>
