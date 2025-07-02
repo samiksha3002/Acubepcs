@@ -1,13 +1,15 @@
-import Image from "next/image"; // Save your Android logo as 'public/android-logo.png'
+"use client";
+
+import { motion } from "framer-motion";
 import { FaDownload, FaAndroid } from "react-icons/fa";
 
-export default function DownloadAppSection() {
+const DownloadAppSection = () => {
   return (
     <section
       className="bg-cover bg-center py-20 px-6 text-center"
       style={{
         backgroundImage:
-          "url('https://darkviolet-tapir-631906.hostingersite.com/wp-content/uploads/2023/10/1.jpg')", // Save your background as 'public/download-bg.jpg'
+          "url('https://darkviolet-tapir-631906.hostingersite.com/wp-content/uploads/2023/10/1.jpg')",
       }}
     >
       <h2 className="text-3xl md:text-4xl font-extrabold text-green-400 mb-10">
@@ -16,10 +18,15 @@ export default function DownloadAppSection() {
 
       <div className="bg-white max-w-2xl mx-auto rounded-2xl shadow-xl p-8 flex items-center justify-center gap-6">
         <FaAndroid className="text-green-500 text-6xl" />
-        <span className="text-4xl font-light text-black">android</span>
+        <span className="text-4xl font-light text-black">Android</span>
       </div>
 
-      <div className="mt-10">
+      <motion.div
+        initial={{ scale: 1 }}
+        animate={{ scale: [1, 1.1, 1] }}
+        transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
+        className="mt-10 inline-block"
+      >
         <a
           href="/your-app.apk"
           download
@@ -28,7 +35,9 @@ export default function DownloadAppSection() {
           <FaDownload />
           Download
         </a>
-      </div>
+      </motion.div>
     </section>
   );
-}
+};
+
+export default DownloadAppSection;

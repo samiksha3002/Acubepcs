@@ -82,10 +82,15 @@ export default function UserAccount() {
 
   return (
     <div className="min-h-screen bg-gray-100">
-      <header className="flex justify-between items-center px-6  bg-white shadow-xl">
+      <header className="flex justify-between items-center px-4 py-2 bg-white shadow-xl">
         <div className="flex items-center gap-2">
-          <Image src="/logi.png" alt="Logo" width={110} height={40} />
-          <h1 className="text-xl font-bold"></h1>
+          <Image
+            src="/logi.png"
+            alt="Logo"
+            width={110}
+            height={40}
+            className="-my-2"
+          />
         </div>
 
         <div className="relative">

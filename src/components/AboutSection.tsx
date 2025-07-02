@@ -38,19 +38,15 @@ const AboutSection = () => {
 
       {/* Right Animated Image */}
       <motion.div
-        initial={{ scale: 0.8 }}
-        animate={{ scale: [0.95, 1, 0.95] }}
-        transition={{
-          repeat: Infinity,
-          duration: 3,
-          ease: "easeInOut",
-        }}
+        initial={{ scale: 1 }}
+        animate={{ scale: [1, 1.05, 1] }}
+        transition={{ repeat: Infinity, duration: 2.5, ease: "easeInOut" }}
         className="mt-10 md:mt-0 w-full md:w-1/2 flex justify-center z-10"
       >
         <img
-          src="ev2.png" // ✅ external URL instead of local file
+          src="ev2.png"
           alt="About App"
-          className="rounded-xl shadow-lg max-w-[300px] sm:max-w-[350px] h-auto"
+          className="rounded-xl shadow-lg max-w-[220px] sm:max-w-[240px] md:max-w-[260px] max-h-[3600px] h-auto"
         />
       </motion.div>
     </section>

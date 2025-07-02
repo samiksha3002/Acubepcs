@@ -1,6 +1,9 @@
+"use client";
+
 import React from "react";
 import { FaUser } from "react-icons/fa";
 import { BsArrowLeft } from "react-icons/bs";
+import { motion } from "framer-motion";
 
 interface RewardItem {
   teamSize: number;
@@ -78,9 +81,13 @@ const RewardsSection: React.FC = () => {
 
         <div className="space-y-6">
           {rewardData.map((item, index) => (
-            <div
+            <motion.div
               key={index}
               className="flex flex-col sm:flex-row items-center sm:items-start gap-6 bg-black/40 p-6 rounded-xl backdrop-blur-sm shadow-md"
+              initial={{ x: -100, opacity: 0 }}
+              whileInView={{ x: 0, opacity: 1 }}
+              transition={{ delay: index * 0.3, duration: 0.6 }}
+              viewport={{ once: true }}
             >
               <div className="bg-purple-600 p-5 rounded-full text-white text-3xl">
                 <FaUser />
@@ -103,7 +110,7 @@ const RewardsSection: React.FC = () => {
                   {item.directReferrals} Direct Referral
                 </div>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>
