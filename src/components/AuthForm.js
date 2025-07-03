@@ -22,14 +22,12 @@ export default function AuthForm() {
     setError("");
 
     try {
-      // ✅ Admin Login Shortcut
       if (email === "admin@pcs.com" && password === "admin123") {
         router.push("/admin/dashboard");
         return;
       }
 
       if (isSignup) {
-        // ✅ Create new user
         const res = await createUserWithEmailAndPassword(auth, email, password);
         await setDoc(doc(db, "users", res.user.uid), {
           name,
@@ -43,7 +41,6 @@ export default function AuthForm() {
         });
         router.push("/user/dashboard");
       } else {
-        // ✅ Login existing user
         const res = await signInWithEmailAndPassword(auth, email, password);
         const userDoc = await getDoc(doc(db, "users", res.user.uid));
 
@@ -64,7 +61,7 @@ export default function AuthForm() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-100 to-purple-100 px-4">
+    <div className="min-h-screen overflow-hidden flex items-center justify-center bg-gradient-to-br from-blue-100 to-purple-100 px-4">
       <div className="bg-white shadow-xl rounded-xl p-8 w-full max-w-md">
         <h2 className="text-2xl font-bold text-center mb-6 text-blue-600">
           {isSignup ? "Lets Get Started " : "Login to Your Account"}

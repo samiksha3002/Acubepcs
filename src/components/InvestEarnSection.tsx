@@ -25,7 +25,7 @@ const InvestEarnSection = () => {
           className="mb-6 md:mb-0"
         >
           <img
-            src="https://darkviolet-tapir-631906.hostingersite.com/wp-content/uploads/2025/06/AcubeI3.jpg"
+            src="ev.png"
             alt="App UI"
             className="w-[220px] sm:w-[260px] md:w-[300px] rounded-xl shadow-2xl"
           />

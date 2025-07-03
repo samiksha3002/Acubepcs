@@ -53,7 +53,7 @@ const HowItWorks = () => {
           {steps.map((step, index) => (
             <div
               key={index}
-              className="flex flex-col sm:flex-row sm:items-start items-center text-left w-full max-w-xl mx-auto space-y-3 sm:space-y-0 sm:space-x-6"
+              className="flex flex-col sm:flex-row sm:items-start items-center text-center sm:text-left w-full max-w-xl mx-auto space-y-3 sm:space-y-0 sm:space-x-6"
             >
               {/* Icon */}
               <div className="bg-blue-600 text-white p-4 rounded-full text-2xl shadow-lg">

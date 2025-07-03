@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
@@ -8,6 +8,23 @@ import { Menu, X } from "lucide-react";
 
 const HeroWithHeader = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [showHeader, setShowHeader] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      if (currentScrollY < lastScrollY) {
+        setShowHeader(true);
+      } else {
+        setShowHeader(false);
+      }
+      setLastScrollY(currentScrollY);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [lastScrollY]);
 
   return (
     <section
@@ -21,7 +38,12 @@ const HeroWithHeader = () => {
       <div className="absolute inset-0 bg-black bg-opacity-60 z-0" />
 
       {/* Header */}
-      <header className="w-full fixed top-0 left-0 z-50">
+      <motion.header
+        className="w-full fixed top-0 left-0 z-50"
+        initial={{ y: 0 }}
+        animate={{ y: showHeader ? 0 : -100 }}
+        transition={{ duration: 0.3 }}
+      >
         <div className="max-w-7xl mx-auto px-6 md:px-10 py-3 flex items-center justify-between">
           {/* Logo */}
           <div className="flex items-center space-x-2 z-50">
@@ -106,7 +128,7 @@ const HeroWithHeader = () => {
             </Link>
           </motion.div>
         )}
-      </header>
+      </motion.header>
 
       {/* Hero Content */}
       <div className="relative z-10 flex flex-col-reverse md:flex-row items-center justify-between px-6 md:px-20 pt-40 pb-20 gap-10">
