@@ -61,6 +61,17 @@ export default function WithdrawPage() {
   };
 
   const handleSubmit = async () => {
+    // ✅ Validation
+    if (
+      !form.bankName ||
+      !form.accountNumber ||
+      !form.accountHolder ||
+      !form.ifscCode
+    ) {
+      alert("❌ Please fill in all the bank details.");
+      return;
+    }
+
     try {
       await addDoc(collection(db, "withdrawRequests"), {
         uid: userData.uid,
@@ -137,13 +148,30 @@ export default function WithdrawPage() {
 
           {showForm && (
             <div className="mt-6 space-y-4">
-              <input
-                type="text"
-                placeholder="Bank Name"
+              <select
                 value={form.bankName}
                 onChange={(e) => setForm({ ...form, bankName: e.target.value })}
                 className="w-full p-2 border rounded"
-              />
+              >
+                <option value="">Select Bank</option>
+                <option value="State Bank of India">State Bank of India</option>
+                <option value="Punjab National Bank">
+                  Punjab National Bank
+                </option>
+                <option value="Bank of Baroda">Bank of Baroda</option>
+                <option value="Canara Bank">Canara Bank</option>
+                <option value="Union Bank of India">Union Bank of India</option>
+                <option value="Bank of India">Bank of India</option>
+                <option value="Indian Bank">Indian Bank</option>
+                <option value="Central Bank of India">
+                  Central Bank of India
+                </option>
+                <option value="UCO Bank">UCO Bank</option>
+                <option value="Indian Overseas Bank">
+                  Indian Overseas Bank
+                </option>
+              </select>
+
               <input
                 type="text"
                 placeholder="Account Number"
