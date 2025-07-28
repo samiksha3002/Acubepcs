@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { auth, db } from "@/lib/firebase";
 import { onAuthStateChanged } from "firebase/auth";
-import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc, collection, addDoc, Timestamp } from "firebase/firestore";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 
@@ -11,6 +11,14 @@ export default function WithdrawPage() {
   const [userData, setUserData] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [amount, setAmount] = useState("");
+  const [showForm, setShowForm] = useState(false);
+  const [form, setForm] = useState({
+    bankName: "",
+    accountNumber: "",
+    accountHolder: "",
+    ifscCode: "",
+  });
+
   const router = useRouter();
 
   useEffect(() => {
@@ -24,7 +32,7 @@ export default function WithdrawPage() {
         const userRef = doc(db, "users", user.uid);
         const userSnap = await getDoc(userRef);
         if (userSnap.exists()) {
-          setUserData(userSnap.data());
+          setUserData({ ...userSnap.data(), uid: user.uid });
         }
       } catch (error) {
         console.error("Error fetching user data:", error);
@@ -36,9 +44,49 @@ export default function WithdrawPage() {
     return () => unsubscribe();
   }, []);
 
+  const availableProfit =
+    userData?.dailyReturn *
+      Math.floor(
+        (new Date().getTime() - userData?.startDate?.toDate().getTime()) /
+          (1000 * 60 * 60 * 24)
+      ) || 0;
+
   const handleWithdraw = () => {
-    alert(`Withdrawal request of ₹${amount} submitted.`);
-    setAmount("");
+    const amt = parseFloat(amount);
+    if (isNaN(amt) || amt < 2000) {
+      alert("❌ Minimum withdrawal amount is ₹2000.");
+      return;
+    }
+    setShowForm(true);
+  };
+
+  const handleSubmit = async () => {
+    try {
+      await addDoc(collection(db, "withdrawRequests"), {
+        uid: userData.uid,
+        email: userData.email,
+        amount: parseFloat(amount),
+        bankName: form.bankName,
+        accountNumber: form.accountNumber,
+        accountHolder: form.accountHolder,
+        ifscCode: form.ifscCode,
+        status: "pending",
+        timestamp: Timestamp.now(),
+      });
+
+      alert("✅ Withdrawal request submitted.");
+      setAmount("");
+      setForm({
+        bankName: "",
+        accountNumber: "",
+        accountHolder: "",
+        ifscCode: "",
+      });
+      setShowForm(false);
+    } catch (error) {
+      console.error("Error saving withdrawal request:", error);
+      alert("❌ Failed to submit request.");
+    }
   };
 
   if (loading)
@@ -66,13 +114,7 @@ export default function WithdrawPage() {
           </h2>
 
           <p className="text-gray-600 text-sm mb-6 text-center">
-            Available Profit: ₹
-            {userData?.dailyReturn *
-              Math.floor(
-                (new Date().getTime() -
-                  userData?.startDate?.toDate().getTime()) /
-                  (1000 * 60 * 60 * 24)
-              ) || 0}
+            Available Profit: ₹{availableProfit}
           </p>
 
           <label className="block text-sm mb-2">Enter Amount (₹)</label>
@@ -81,15 +123,61 @@ export default function WithdrawPage() {
             className="w-full p-2 border rounded mb-4"
             value={amount}
             onChange={(e) => setAmount(e.target.value)}
-            placeholder="Eg. 500"
+            placeholder="Eg. 2000"
           />
 
-          <button
-            onClick={handleWithdraw}
-            className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded shadow"
-          >
-            Submit Withdrawal
-          </button>
+          {!showForm && (
+            <button
+              onClick={handleWithdraw}
+              className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded shadow"
+            >
+              Continue
+            </button>
+          )}
+
+          {showForm && (
+            <div className="mt-6 space-y-4">
+              <input
+                type="text"
+                placeholder="Bank Name"
+                value={form.bankName}
+                onChange={(e) => setForm({ ...form, bankName: e.target.value })}
+                className="w-full p-2 border rounded"
+              />
+              <input
+                type="text"
+                placeholder="Account Number"
+                value={form.accountNumber}
+                onChange={(e) =>
+                  setForm({ ...form, accountNumber: e.target.value })
+                }
+                className="w-full p-2 border rounded"
+              />
+              <input
+                type="text"
+                placeholder="Account Holder Name"
+                value={form.accountHolder}
+                onChange={(e) =>
+                  setForm({ ...form, accountHolder: e.target.value })
+                }
+                className="w-full p-2 border rounded"
+              />
+              <input
+                type="text"
+                placeholder="IFSC Code"
+                value={form.ifscCode}
+                onChange={(e) => setForm({ ...form, ifscCode: e.target.value })}
+                className="w-full p-2 border rounded"
+              />
+
+              <button
+                onClick={handleSubmit}
+                className="w-full bg-green-600 hover:bg-green-700 text-white py-2 rounded shadow"
+              >
+                Submit Request
+              </button>
+            </div>
+          )}
         </div>
       </main>
     </div>

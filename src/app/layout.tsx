@@ -13,12 +13,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" className="overflow-x-hidden">
       <head>
         {/* ✅ Viewport meta tag to ensure responsive behavior */}
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </head>
-      {/* ✅ overflow-x-hidden added to prevent horizontal scroll on mobile */}
       <body className="min-h-screen bg-white text-gray-900 overflow-x-hidden">
         {children}
       </body>
