@@ -41,13 +41,18 @@ const AboutSection = () => {
         initial={{ scale: 1 }}
         animate={{ scale: [1, 1.05, 1] }}
         transition={{ repeat: Infinity, duration: 2.5, ease: "easeInOut" }}
-        className="mt-10 md:mt-0 w-full md:w-1/2 flex justify-center z-10"
+        className="mt-10 md:mt-0 w-full md:w-1/2 flex flex-col items-center z-10"
       >
         <img
           src="ev2.png"
           alt="About App"
           className="rounded-xl shadow-lg max-w-[220px] sm:max-w-[240px] md:max-w-[260px] max-h-[3600px] h-auto"
         />
+        <p className="text-xs text-gray-300 mt-2 italic text-center">
+          *Image is for illustration only
+          <br />
+          For actual profits, refer to profit charts
+        </p>
       </motion.div>
     </section>
   );

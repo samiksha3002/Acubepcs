@@ -1,5 +1,6 @@
 "use client";
 import PlanCard from "./PlanCard";
+import Image from "next/image";
 
 const plans = [
   {
@@ -60,11 +61,25 @@ const plans = [
 
 const PlansSection = () => {
   return (
-    <section className="px-4 py-6 bg-gray-100 min-h-screen">
-      {plans.map((plan, index) => (
-        <PlanCard key={index} {...plan} />
-      ))}
-    </section>
+    <div className="min-h-screen bg-gray-100">
+      {/* Header with centered logo */}
+      <header className="w-full py-4 bg-white shadow-md flex justify-center items-center">
+        <Image
+          src="/logi.png" // Update this path to your actual logo file
+          alt="Acube Logo"
+          width={160}
+          height={60}
+          className="object-contain"
+        />
+      </header>
+
+      {/* Plans Section */}
+      <section className="px-4 py-6">
+        {plans.map((plan, index) => (
+          <PlanCard key={index} {...plan} />
+        ))}
+      </section>
+    </div>
   );
 };
 

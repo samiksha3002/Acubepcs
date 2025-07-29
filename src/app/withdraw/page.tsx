@@ -166,6 +166,7 @@ export default function WithdrawPage() {
                 <option value="Central Bank of India">
                   Central Bank of India
                 </option>
+                <option value="Kotak Mahindra Bank">Kotak Mahindra Bank</option>
                 <option value="UCO Bank">UCO Bank</option>
                 <option value="Indian Overseas Bank">
                   Indian Overseas Bank
