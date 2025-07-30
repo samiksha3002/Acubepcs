@@ -26,8 +26,23 @@ const HeroWithHeader = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [lastScrollY]);
 
+  // Enable smooth scroll behavior
+  useEffect(() => {
+    document.documentElement.style.scrollBehavior = "smooth";
+  }, []);
+
+  const navItems = [
+    { name: "HOME", href: "#home" },
+    { name: "ABOUT", href: "#AboutSection" },
+    { name: "INVESTMENT", href: "#InvestmentOpportunities" },
+    { name: "HOW IT WORKS", href: "#HowItWorks" },
+    { name: "INVEST & EARN", href: "#InvestEarnSection" },
+    { name: "REWARDS", href: "#RewardsSection" },
+  ];
+
   return (
     <section
+      id="home"
       className="relative min-h-screen bg-black text-white bg-cover bg-center"
       style={{
         backgroundImage:
@@ -58,20 +73,13 @@ const HeroWithHeader = () => {
 
           {/* Desktop Nav */}
           <nav className="hidden md:flex space-x-6 text-sm font-medium">
-            {[
-              "HOME",
-              "ABOUT",
-              "INVESTMENT",
-              "HOW IT WORKS",
-              "INVEST & EARN",
-              "REWARDS",
-            ].map((item, i) => (
+            {navItems.map((item, i) => (
               <a
                 key={i}
-                href={`#${item.toLowerCase().replace(/ /g, "-")}`}
+                href={item.href}
                 className="hover:text-blue-400 transition"
               >
-                {item}
+                {item.name}
               </a>
             ))}
           </nav>
@@ -103,21 +111,14 @@ const HeroWithHeader = () => {
             transition={{ duration: 0.3 }}
             className="md:hidden bg-black bg-opacity-90 absolute w-full top-[72px] left-0 flex flex-col items-center space-y-5 py-6 text-sm z-40"
           >
-            {[
-              "HOME",
-              "ABOUT",
-              "INVESTMENT",
-              "HOW IT WORKS",
-              "INVEST & EARN",
-              "REWARDS",
-            ].map((item, i) => (
+            {navItems.map((item, i) => (
               <a
                 key={i}
-                href={`#${item.toLowerCase().replace(/ /g, "-")}`}
+                href={item.href}
                 className="hover:text-blue-400 transition"
                 onClick={() => setMenuOpen(false)}
               >
-                {item}
+                {item.name}
               </a>
             ))}
             <Link

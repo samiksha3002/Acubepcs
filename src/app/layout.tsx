@@ -1,5 +1,6 @@
 import "../globals.css";
 import type { Metadata } from "next";
+import LoadingProvider from "@/components/loading-provider";
 
 export const metadata: Metadata = {
   title: "PCS - Invest in Future Energy",
@@ -15,11 +16,10 @@ export default function RootLayout({
   return (
     <html lang="en" className="overflow-x-hidden">
       <head>
-        {/* ✅ Viewport meta tag to ensure responsive behavior */}
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </head>
       <body className="min-h-screen bg-white text-gray-900 overflow-x-hidden">
-        {children}
+        <LoadingProvider>{children}</LoadingProvider>
       </body>
     </html>
   );

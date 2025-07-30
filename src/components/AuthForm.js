@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { auth, db } from "../lib/firebase";
+import { auth, db } from "../lib/firebase"; // ✅ correct path
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
@@ -15,11 +15,14 @@ export default function AuthForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+
   const router = useRouter();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
+    setLoading(true);
 
     try {
       if (email === "admin@pcs.com" && password === "admin123") {
@@ -57,6 +60,8 @@ export default function AuthForm() {
       }
     } catch (err) {
       setError(err.message);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -64,7 +69,7 @@ export default function AuthForm() {
     <div className="min-h-screen overflow-hidden flex items-center justify-center bg-gradient-to-br from-blue-100 to-purple-100 px-4">
       <div className="bg-white shadow-xl rounded-xl p-8 w-full max-w-md">
         <h2 className="text-2xl font-bold text-center mb-6 text-blue-600">
-          {isSignup ? "Lets Get Started " : "Login to Your Account"}
+          {isSignup ? "Let's Get Started" : "Login to Your Account"}
         </h2>
 
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
@@ -101,9 +106,38 @@ export default function AuthForm() {
 
           <button
             type="submit"
-            className="bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition"
+            className="bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition flex justify-center items-center"
+            disabled={loading}
           >
-            {isSignup ? "Sign Up" : "Login"}
+            {loading ? (
+              <>
+                <svg
+                  className="animate-spin h-5 w-5 text-white mr-2"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <circle
+                    className="opacity-25"
+                    cx="12"
+                    cy="12"
+                    r="10"
+                    stroke="currentColor"
+                    strokeWidth="4"
+                  />
+                  <path
+                    className="opacity-75"
+                    fill="currentColor"
+                    d="M4 12a8 8 0 018-8v8H4z"
+                  />
+                </svg>
+                Loading...
+              </>
+            ) : isSignup ? (
+              "Sign Up"
+            ) : (
+              "Login"
+            )}
           </button>
         </form>
 
